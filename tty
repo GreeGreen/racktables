@@ -1,0 +1,126 @@
+#!/bin/bash
+set -x
+USER="cisco"
+PASSWD="cisco"
+ENABLE="moesk"
+LOG="telnet.log"
+HOSTS="
+10.18.160.71
+10.18.160.72
+10.18.160.62
+10.18.160.63
+10.18.160.41
+10.18.160.42
+10.18.160.44
+10.18.160.45
+10.18.160.51
+10.18.160.52
+10.18.160.53
+10.18.160.61
+"
+
+for H in $HOSTS
+do
+echo START SCRIPT: >> $LOG
+date +%x-%R >> $LOG
+(
+sleep 1;
+echo -en "$USER\r";
+sleep 2;
+echo -en "$PASSWD\r";
+sleep 2;
+echo -en "enable\r";
+sleep 2;
+echo -en "$ENABLE\r";
+sleep 2;
+echo -en "conf t\r";
+sleep 2;
+echo -en "aaa new-model\r"
+sleep 2;
+echo -en "tacacs-server host 10.42.222.24\r"
+sleep 2;
+echo -en "tacacs-server timeout 10\r"
+sleep 2;
+echo -en "tacacs-server key iEjaHjS70GzlM\r"
+sleep 2;
+echo -en "aaa authentication banner ^Restricted Area, please introduce your self^\r"
+sleep 2;
+echo -en "aaa authentication fail-message ^IP, dump and traceback are captured!^\r"
+sleep 2;
+echo -en "aaa authentication login default local group tacacs+\r"
+sleep 2;
+echo -en "aaa authentication enable default enable\r"
+sleep 2;
+echo -en "aaa authorization exec default local group tacacs+\r"
+sleep 2;
+echo -en "aaa authorization commands 15 default local group tacacs+\r"
+sleep 2;
+echo -en "aaa accounting send stop-record authentication failure\r"
+sleep 2;
+echo -en "aaa accounting exec default start-stop group tacacs+\r"
+sleep 2;
+echo -en "aaa accounting commands 15 default start-stop group tacacs+\r"
+sleep 2;
+echo -en "aaa accounting connection default start-stop group tacacs+\r"
+sleep 2;
+echo -en "aaa accounting system default start-stop group tacacs+\r"
+sleep 2;
+echo -en "no logging console\r"
+sleep 2;
+echo -en "logging source-interface Vlan100\r"
+sleep 2;
+echo -en "logg trap 6\r"
+sleep 2;
+echo -en "logging 10.42.222.24\r"
+sleep 2;
+echo -en "service timestamps log datetime localtime show-timezone msec\r"
+sleep 2;
+echo -en "enable secret MOESK\r"
+sleep 2;
+echo -en "no username nighthalk\r"
+sleep 1;
+echo -en "\r"
+sleep 2;
+echo -en "no username itramb\r"
+sleep 1;
+echo -en "\r"
+sleep 2;
+echo -en "no username keo\r"
+sleep 1;
+echo -en "\r"
+sleep 2;
+echo -en "no username agafonov\r"
+sleep 1;
+echo -en "\r"
+sleep 2;
+echo -en "no username cisco\r"
+sleep 1;
+echo -en "\r"
+sleep 2;
+echo -en "no username lavrov\r"
+sleep 1;
+echo -en "\r"
+sleep 2;
+echo -en "no username rancid\r"
+sleep 1;
+echo -en "\r"
+sleep 2;
+echo -en "username sysman secret C@t@lyst00\r"
+sleep 2;
+echo -en "no ip http server\r"
+sleep 2;
+echo -en "no ip http secure-server\r"
+sleep 2;
+echo -en "service tcp-keepalives-in\r"
+sleep 2;
+echo -en "service tcp-keepalives-out\r"
+sleep 2;
+echo -en "service password-encryption\r"
+sleep 2;
+echo -en "exit\r"
+sleep 1;
+
+
+) | telnet $H >> $LOG
+echo =================================== >> $LOG
+done
