@@ -141,8 +141,9 @@ cat 4 | grep -v 'Veeam Backup:' > Object_Function
 rm -rf [1-4]
 
 # You can uncomment this strings if you want to import data in one file
-cat Racktables_import* >> import
 cat Object_* >> import
+cat Racktables_import* >> import
+
 rm -rf Rack*
 rm -rf Object*
 
