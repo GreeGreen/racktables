@@ -140,6 +140,16 @@ awk '{print "OBJECTATTRIBUTE;"$0}' 3 > 4
 cat 4 | grep -v 'Veeam Backup:' > Object_Function
 rm -rf [1-4]
 
+# This part creates comment for Objects
+
+cat RVTools_tabvNetwork.csv | cut -d ';' -f 1,13 | grep -v '; ' > 1
+sed '/;$/d' 1 > 2
+sed '/"$/d' 2 > 3
+sed -i 's/;/;COMMENT;/g' 3
+awk '{print "OBJECTATTRIBUTE;"$0}' 3 > 4
+cat 4 > Object_comment
+rm -rf [1-4]
+
 # You can uncomment this strings if you want to import data in one file
 cat Racktables_import_Objects_new >> import
 cat Racktables_import_ObjectsIP_new >> import
