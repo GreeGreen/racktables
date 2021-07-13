@@ -2,7 +2,7 @@
 set -x
 USER="cisco"
 PASSWD="cisco"
-ENABLE="moesk"
+ENABLE=""
 LOG="telnet.log"
 HOSTS="
 10.18.160.71
@@ -37,11 +37,11 @@ echo -en "conf t\r";
 sleep 2;
 echo -en "aaa new-model\r"
 sleep 2;
-echo -en "tacacs-server host 10.42.222.24\r"
+echo -en "tacacs-server host \r"
 sleep 2;
 echo -en "tacacs-server timeout 10\r"
 sleep 2;
-echo -en "tacacs-server key iEjaHjS70GzlM\r"
+echo -en "tacacs-server key \r"
 sleep 2;
 echo -en "aaa authentication banner ^Restricted Area, please introduce your self^\r"
 sleep 2;
@@ -67,45 +67,15 @@ echo -en "aaa accounting system default start-stop group tacacs+\r"
 sleep 2;
 echo -en "no logging console\r"
 sleep 2;
-echo -en "logging source-interface Vlan100\r"
+echo -en "logging \r"
 sleep 2;
 echo -en "logg trap 6\r"
 sleep 2;
-echo -en "logging 10.42.222.24\r"
+echo -en "logging \r"
 sleep 2;
 echo -en "service timestamps log datetime localtime show-timezone msec\r"
 sleep 2;
-echo -en "enable secret MOESK\r"
-sleep 2;
-echo -en "no username nighthalk\r"
-sleep 1;
-echo -en "\r"
-sleep 2;
-echo -en "no username itramb\r"
-sleep 1;
-echo -en "\r"
-sleep 2;
-echo -en "no username keo\r"
-sleep 1;
-echo -en "\r"
-sleep 2;
-echo -en "no username agafonov\r"
-sleep 1;
-echo -en "\r"
-sleep 2;
-echo -en "no username cisco\r"
-sleep 1;
-echo -en "\r"
-sleep 2;
-echo -en "no username lavrov\r"
-sleep 1;
-echo -en "\r"
-sleep 2;
-echo -en "no username rancid\r"
-sleep 1;
-echo -en "\r"
-sleep 2;
-echo -en "username sysman secret C@t@lyst00\r"
+echo -en "enable secret \r"
 sleep 2;
 echo -en "no ip http server\r"
 sleep 2;
